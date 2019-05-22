@@ -42,7 +42,7 @@ def average_results(key):
 
 
 def write_results():
-    with open('reverse_sort.csv', 'w') as csv_file:
+    with open('kai_sort.csv', 'w') as csv_file:
         writer = csv.writer(csv_file)
         for key, value in results.items():
             writer.writerow([key, value])
@@ -78,6 +78,13 @@ def colin_reverse(data):
         reversed.append(data[i])
     return reversed
 
+def kai_reverse(data):
+    reversed = []
+    for i in range(1, len(data) - 1, 1):
+        reversed.append(data.pop())
+    return reversed
+
+
 
 #
 # timer(setup_function, slow_flip_results_sort, 20)
@@ -86,7 +93,7 @@ def colin_reverse(data):
 # print(results)
 # write_results()
 
-timer(setup_function, colin_reverse, 20)
+timer(setup_function, kai_reverse, 20)
 collate_results()
 print(results)
 write_results()
