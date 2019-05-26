@@ -42,7 +42,7 @@ def average_results(key):
 
 
 def write_results():
-    with open('kai_sort.csv', 'w') as csv_file:
+    with open('colin_selection_sort.csv', 'w') as csv_file:
         writer = csv.writer(csv_file)
         for key, value in results.items():
             writer.writerow([key, value])
@@ -92,9 +92,80 @@ def kai_reverse(data):
 # collate_results()
 # print(results)
 # write_results()
+#
 
-timer(setup_function, kai_reverse, 20)
+
+
+
+def merge_sort(data):
+
+    # break problem down
+    length = len(data)
+    if len(data) < 2:
+        return data
+    left = data[:int(length/2)]
+    right = data[int(length/2):]
+
+    # recursive call
+    sorted_left = merge_sort(left)
+    sorted_right = merge_sort(right)
+
+    # merge results
+    index_left, index_right = 0, 0
+    result = []
+    # merge - loop
+    while index_left < len(sorted_left) and index_right < len(sorted_right):
+        # merge - compare numbers
+        if sorted_left[index_left] <= sorted_right[index_right]:
+            result.append(sorted_left[index_left])
+            index_left += 1
+        else:
+            result.append(sorted_right[index_right])
+            index_right += 1
+
+    # merge - catch end of left and right arrays
+    if index_left > len(sorted_left) - 1:
+        result += sorted_right[index_right:]
+
+    elif index_right > len(sorted_right) - 1:
+        result += sorted_left[index_left:]
+
+    # print(result)
+    return result
+
+def python_timsort(data):
+    return data.sort()
+
+def find_minimum_index(data):
+    minimum = data[0]
+    min_index = 0
+    length = len(data)
+    i = 0
+    while i < length:
+        if data[i] < minimum:
+            minimum = data[i]
+            min_index = i
+        i += 1
+    return min_index
+
+
+def selection_sort(data):
+    result = []
+    while data:
+        # minimum_position = find_minimum_index(data)
+        minimum_position = data.index(min(data))
+        result.append(data[minimum_position])
+        data[minimum_position] = data[-1]
+        data.pop()
+    return result
+
+#
+timer(setup_function, selection_sort, 20)
 collate_results()
 print(results)
 write_results()
+#
+#
+# data = [3, 5, 2, 7, 4, 5, 10, 1]
+# print(selection_sort(data))
 
